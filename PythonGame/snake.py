@@ -108,8 +108,22 @@ class Snake(object):
         pass
 
     def addCube(self):
-        pass
-    
+        tail = self.body[-1]
+        dx, dy = tail.dirnx, tail.dirny
+        # check which way the tail of snake is moving (so we know the directions and location of the added Cube)
+        if dx == 1 and dy == 0:
+            self.body.append(Cube((tail.pos[0]-1, tail.pos[1])))
+        elif dx == -1 and dy == 0:
+            self.body.append(Cube((tail.pos[0]+1, tail.pos[1])))
+        elif dx == 0 and dy == 1:
+            self.body.append(Cube((tail.pos[0], tail.pos[1]-1)))
+        elif dx == 0 and dy == -1:
+            self.body.append(Cube((tail.pos[0], tail.pos[1]+1)))
+        # add direction to added cube
+        self.body[-1].dirnx = dx
+        self.body[-1].dirny = dy
+
+
     def draw(self, surface):
         for i, c in enumerate(self.body):
             # check if Cube is head
@@ -132,13 +146,15 @@ def drawGrid(w, rows, surface):
         pygame.draw.line(surface, (255,255,255), (0,y), (w,y)) # horizontal line
 
 def redrawWindow(surface):
-    global width, rows, snake
+    global width, rows, snake, snack
     # fill the screen (with black)
     surface.fill((0,0,0))
     # draw the grid
     drawGrid(width, rows, surface)
     # draw the snake
     snake.draw(surface)
+    # draw the snack
+    snack.draw(surface)
     # update display
     pygame.display.update()
     pass
@@ -163,7 +179,7 @@ def message_box(subject, content):
     pass
 
 def main():
-    global width, rows, snake
+    global width, rows, snake, snack
 
     width = 500
     rows = 20
@@ -183,7 +199,7 @@ def main():
         if snake.body[0].pos == snack.pos:
             snake.addCube()
             snack = Cube(randomSnack(), color=(0,255,0))
-            
+
         redrawWindow(win)
         
 
