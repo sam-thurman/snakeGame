@@ -200,9 +200,9 @@ def main():
         # log and check positions
         positions = [x.pos for x in snake.body]
         #check if there are more than one body squares in the same position
-        if filter(lambda x: x.value>1,Counter.count(positions)):
+        if filter(lambda x: x.value>1,Counter(positions)):
             win.fill("green")
-            win.draw.text("Game Over: Du hast das 1. Level erfolgreich abgeschlossen!",
+            pygame.draw.text("Game Over: Du hast das 1. Level erfolgreich abgeschlossen!",
                      topleft=(100,350), fontsize=30)
         
         if snake.body[0].pos == snack.pos:
