@@ -201,10 +201,7 @@ def main():
             snack = Cube(randomSnack(), color=(0,255,0))
 
         redrawWindow(win)
-        
 
     pass
-
-
 
 main()
