@@ -2,13 +2,10 @@ import random
 import pygame
 import tkinter as tk
 from tkinter import messagebox
+from collections import Counter
 '''
 Drawing in pygame starts in upper left hand corner of object
 '''
-
-def countInArray(array, what):
-    return array.filter(lambda x: item == what).length
-
 
 class Cube(object):
     rows = 20
@@ -193,13 +190,21 @@ def main():
     snack = Cube(randomSnack(), color=(0,255,0))
     flag = True
     clock = pygame.time.Clock()
-
     while flag:
         # create 50 ms time delay
         pygame.time.delay(50)
         # make sure our game doesn't run faster than 10 fps
         clock.tick(10)
+        # move snake
         snake.move()
+        # log and check positions
+        positions = [x.pos for x in snake.body]
+        #check if there are more than one body squares in the same position
+        if filter(lambda x: x.value>1,Counter.count(positions)):
+            win.fill("green")
+            win.draw.text("Game Over: Du hast das 1. Level erfolgreich abgeschlossen!",
+                     topleft=(100,350), fontsize=30)
+        
         if snake.body[0].pos == snack.pos:
             snake.addCube()
             snack = Cube(randomSnack(), color=(0,255,0))
