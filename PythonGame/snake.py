@@ -6,6 +6,10 @@ from tkinter import messagebox
 Drawing in pygame starts in upper left hand corner of object
 '''
 
+def countInArray(array, what):
+    return array.filter(lambda x: item == what).length
+
+
 class Cube(object):
     rows = 20
     w = 500
@@ -199,6 +203,8 @@ def main():
         if snake.body[0].pos == snack.pos:
             snake.addCube()
             snack = Cube(randomSnack(), color=(0,255,0))
+        
+        
 
         redrawWindow(win)
 
