@@ -202,15 +202,13 @@ def main():
         #check if there are more than one body squares in the same position
         if filter(lambda x: x.value>1,Counter(positions)):
             win.fill("green")
-            pygame.draw.text("Game Over: Du hast das 1. Level erfolgreich abgeschlossen!",
+            pygame.draw.text(f"Game Over, you're score was {len(snake.body)}",
                      topleft=(100,350), fontsize=30)
         
         if snake.body[0].pos == snack.pos:
             snake.addCube()
             snack = Cube(randomSnack(), color=(0,255,0))
         
-        
-
         redrawWindow(win)
 
     pass
